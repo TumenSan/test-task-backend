@@ -8,9 +8,10 @@ class NewsModel {
   score = 0;
   time = 0;
   type = '';
+  title = '';
   url = '';
 
-  constructor(id, descendants, by, kids, score, time, type, url) {
+  constructor(id, descendants, by, kids, score, time, type, title, url) {
     this.id = id;
     this.descendants = descendants;
     this.by = by;
@@ -18,6 +19,7 @@ class NewsModel {
     this.score = score;
     this.time = time;
     this.type = type;
+    this.title = title;
     this.url = url;
   }
 
@@ -28,7 +30,8 @@ class NewsModel {
     this.kids = data.kids;
     this.score = data.score;
     this.time = data.time;
-    this.type = data.type;
+    this.title = data.type;
+    this.type = data.title;
     this.url = data.url;
   }
 }

@@ -6,7 +6,7 @@ function fetchSingleNews(id) {
   )
     .then((response) => response.json())
     .then((data) => {
-      if (data.hasOwnProperty("type"))
+      if ((data.hasOwnProperty("type")) && (!data.hasOwnProperty("deleted")) && (!data.hasOwnProperty("dead")))
         if (data.type === "story") {
           console.log(data);
           return new NewsModel(
@@ -17,6 +17,7 @@ function fetchSingleNews(id) {
             data.score,
             data.time,
             data.type,
+            data.title,
             data.url
           );
         } 
