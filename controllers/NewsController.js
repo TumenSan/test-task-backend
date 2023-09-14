@@ -25,6 +25,13 @@ function fetchSingleNews(id) {
     });
 }
 
+function fetch500LastNews() {
+  return fetch(
+    `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty`
+  ).then((response) => response.json());
+}
+
+
 function fetchSingleComment(id) {
   return fetch(
     `https://hacker-news.firebaseio.com/v0/item/${id}.json?print=pretty`
@@ -55,10 +62,10 @@ class NewsController {
     try {
       let News = await fetchSingleNews(req.params.id);
       if (News !== false) res.status(200).send(News);
-      else res.status(400).json({ error: "Error GetNews" });
+      else res.status(200).json({ error: "Error GetNews" });
     } catch (err) {
       console.log(err);
-      res.status(400).json({ error: "Error GetNews" });
+      res.status(200).json({ error: "Error GetNews" });
     } finally {
       console.log("end GetNews");
     }
@@ -73,11 +80,27 @@ class NewsController {
       res.status(200).send({ id: Id });
     } catch (err) {
       console.log(err);
-      res.status(400).json({ error: "Error GetMaxItem" });
+      res.status(200).json({ error: "Error GetMaxItem" });
     } finally {
       console.log("end GetMaxItem");
     }
   }
+
+  // Последние сто новости
+  async Get100LastNews(req, res, next) {
+    console.log("Get100LastNews");
+    try {
+      let Last500News = await fetch500LastNews();
+      const Last100News = Last500News.slice(0, 100);
+      res.status(200).send(Last100News);
+    } catch (err) {
+      console.log(err);
+      res.status(200).json({ error: "Error Get100LastNews" });
+    } finally {
+      console.log("end Get100LastNews");
+    }
+  }
+
 
   // Один комментарии
   async GetComment(req, res, next) {
@@ -85,10 +108,10 @@ class NewsController {
     try {
       let Comment = await fetchSingleComment(req.params.id);
       if (Comment !== false) res.status(200).send(Comment);
-      else res.status(400).json({ error: "Error GetComment" });
+      else res.status(200).json({ error: "Error GetComment" });
     } catch (err) {
       console.log(err);
-      res.status(400).json({ error: "Error GetComment" });
+      res.status(200).json({ error: "Error GetComment" });
     } finally {
       console.log("end GetComment");
     }
