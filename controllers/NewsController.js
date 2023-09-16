@@ -1,4 +1,5 @@
 const NewsModel = require("../models/NewsModel");
+const CommentModel = require("../models/CommentModel");
 
 function fetchSingleNews(id) {
   return fetch(
@@ -8,7 +9,6 @@ function fetchSingleNews(id) {
     .then((data) => {
       if ((data.hasOwnProperty("type")) && (!data.hasOwnProperty("deleted")) && (!data.hasOwnProperty("dead")))
         if (data.type === "story") {
-          console.log(data);
           return new NewsModel(
             data.id,
             data.descendants,
@@ -41,11 +41,12 @@ function fetchSingleComment(id) {
       if (data.hasOwnProperty("type"))
         if (data.type === "comment") {
           console.log(data);
-          return new NewsModel(
+          return new CommentModel(
             data.id,
             data.by,
             data.kids,
             data.text,
+            data.parent,
             data.time,
             data.type
           );

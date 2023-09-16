@@ -5,15 +5,16 @@ class CommentModel {
   by = '';
   kids = [];
   text = '';
+  parent = 0;
   time = 0;
   type = '';
 
-  constructor(id, descendants, by, kids, score, time, type, url) {
+  constructor(id, by, kids, text, parent, time, type) {
     this.id = id;
-    this.descendants = descendants;
     this.by = by;
     this.kids = kids;
     this.text = text;
+    this.parent = parent;
     this.time = time;
     this.type = type;
   }
@@ -23,6 +24,7 @@ class CommentModel {
     this.by = data.by;
     this.kids = data.kids;
     this.text = data.text;
+    this.parent = data.parent;
     this.time = data.time;
     this.type = data.type;
   }
