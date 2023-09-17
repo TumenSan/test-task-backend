@@ -38,7 +38,7 @@ function fetchSingleComment(id) {
   )
     .then((response) => response.json())
     .then((data) => {
-      if (data.hasOwnProperty("type"))
+      if ((data.hasOwnProperty("type")) && (!data.hasOwnProperty("deleted")) && (!data.hasOwnProperty("dead")))
         if (data.type === "comment") {
           console.log(data);
           return new CommentModel(
